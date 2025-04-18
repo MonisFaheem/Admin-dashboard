@@ -31,6 +31,24 @@ const Users = () => {
       dispatch(addUser({ ...formData, id: Date.now() }));
     }
     setFormData({ id: null, name: '', email: '', phone: '', role: '' });
+    if (!formData.name || !formData.email || !formData.phone || !formData.role) {
+      alert("Please fill in all fields before submitting.");
+      return;
+    }
+
+    if (formData.id) {
+      dispatch(editUser(formData));
+    } else {
+      dispatch(addUser({ ...formData, id: Date.now() }));
+    }
+
+    setFormData({
+      id: null,
+      name: "",
+      email: "",
+      phone: "",
+      role: "",
+    });
   };
 
   const handleEdit = (user) => {
