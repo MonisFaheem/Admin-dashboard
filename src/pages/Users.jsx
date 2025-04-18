@@ -22,34 +22,55 @@ const Users = () => {
       [name]: value,
     }));
   };
-  
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (formData.id) {
-      dispatch(editUser(formData));
-    } else {
-      dispatch(addUser({ ...formData, id: Date.now() }));
-    }
-    setFormData({ id: null, name: '', email: '', phone: '', role: '' });
-    if (!formData.name || !formData.email || !formData.phone || !formData.role) {
-      alert("Please fill in all fields before submitting.");
-      return;
-    }
+  e.preventDefault();
 
-    if (formData.id) {
-      dispatch(editUser(formData));
-    } else {
-      dispatch(addUser({ ...formData, id: Date.now() }));
-    }
+  
+  if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.role.trim()) {
+    alert("Please fill in all fields (Name, Email, Phone, Role).");
+    return;
+  }
 
-    setFormData({
-      id: null,
-      name: "",
-      email: "",
-      phone: "",
-      role: "",
-    });
-  };
+  
+  if (formData.id) {
+    dispatch(editUser(formData));
+  } else {
+    
+    dispatch(addUser({ ...formData, id: Date.now() }));
+  }
+
+  
+  setFormData({ id: null, name: '', email: '', phone: '', role: '' });
+};
+
+  
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (formData.id) {
+  //     dispatch(editUser(formData));
+  //   } else {
+  //     dispatch(addUser({ ...formData, id: Date.now() }));
+  //   }
+  //   setFormData({ id: null, name: '', email: '', phone: '', role: '' });
+  //   if (!formData.name || !formData.email || !formData.phone || !formData.role) {
+  //     alert("Please fill in all fields before submitting.");
+  //     return;
+  //   }
+
+  //   if (formData.id) {
+  //     dispatch(editUser(formData));
+  //   } else {
+  //     dispatch(addUser({ ...formData, id: Date.now() }));
+  //   }
+
+  //   setFormData({
+  //     id: null,
+  //     name: "",
+  //     email: "",
+  //     phone: "",
+  //     role: "",
+  //   });
+  // };
 
   const handleEdit = (user) => {
     setFormData(user);
