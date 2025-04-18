@@ -11,16 +11,31 @@ const Tasks = () => {
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
-
-  const handleSubmit = (e) => {
+const handleSubmit = (e) => {
     e.preventDefault();
+  
+    if (!formData.title.trim() || !formData.description.trim()) {
+      alert("Both title and description are required.");
+      return;
+    }
+  
     if (formData.id) {
       dispatch(editTask(formData));
     } else {
       dispatch(addTask({ ...formData, id: Date.now() }));
     }
+  
     setFormData({ id: null, title: '', description: '' });
   };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (formData.id) {
+  //     dispatch(editTask(formData));
+  //   } else {
+  //     dispatch(addTask({ ...formData, id: Date.now() }));
+  //   }
+  //   setFormData({ id: null, title: '', description: '' });
+  // };
 
   const handleEdit = (task) => {
     setFormData(task);
